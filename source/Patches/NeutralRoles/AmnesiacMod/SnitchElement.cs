@@ -1,7 +1,13 @@
-using System.Linq;
 using HarmonyLib;
 using Hazel;
+using TownOfUs.CrewmateRoles.InvestigatorMod;
+using TownOfUs.CrewmateRoles.SnitchMod;
+using TownOfUs.CrewmateRoles.TrapperMod;
 using TownOfUs.Roles;
+using UnityEngine;
+using System;
+using Il2CppSystem.Collections.Generic;
+using TownOfUs.Extensions;
 
 namespace TownOfUs.NeutralRoles.AmnesiacMod
 {
@@ -18,7 +24,9 @@ namespace TownOfUs.NeutralRoles.AmnesiacMod
               var tasksLeft = taskinfos.Count(x => !x.Complete);
 
               if (tasksLeft == 0){
-                
+                 var survRole = Role.GetRole<Survivor>(amnesiac);
+                 survRole.LastVested = DateTime.UtcNow;
+                 survRole.UsesLeft = CustomGameOptions.MaxVests;
               }
           }
       }
